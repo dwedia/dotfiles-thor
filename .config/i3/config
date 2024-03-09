@@ -13,10 +13,19 @@ set $mod Mod4
 
 ############ Autostart stuff ############
 
+exec_always --no-startup-id pkill -f volumeicon
+exec_always --no-startup-id pkill -f blueman-applet
+exec_always --no-startup-id pkill -f pasystray
+
 # Launch lxpolkit
 exec_always --no-startup-id lxpolkit &
 
+# Launch Picom
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf &
+
+# launch volumeicon
+
+exec_always --no-startup-id volumeicon &
 
 # set monitor layout
 exec_always --no-startup-id /home/ramiraz/.screenlayout/BothMonitors.sh &
@@ -25,12 +34,8 @@ exec_always --no-startup-id /home/ramiraz/.screenlayout/BothMonitors.sh &
 exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/21x9/mandalorian.jpg --bg-scale ~/Pictures/Wallpapers/16x9/wallhaven-8o8y5o.png &
 
 # Stop any running instances of blueman-applet, and start it again
-exec_always --no-startup-id pkill -f blueman-applet
-exec_always --no-startup-id blueman-applet &
 
-# Stop any running instances of pasystray, and start it again
-exec_always --no-startup-id pkill -f pasystray
-exec_always --no-startup-id pasystray &
+exec_always --no-startup-id blueman-applet &
 
 # focus following mouse yes|no
 focus_follows_mouse yes
@@ -84,7 +89,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+Return exec i3-sensible-terminal
 
 # launch gnome-text-editor in a floating window
