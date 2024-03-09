@@ -25,13 +25,6 @@ if [ -d ~/.bashrc.d ]; then
 fi
 
 unset rc
-if [ -d "$HOME/.local/bin" ] ; then
-  PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/scripts" ] ; then
-  PATH="$HOME/.local/scripts:$PATH"
-fi
 
 if [ -f $HOME/.bash_aliases ] ; then
   . ~/.bash_aliases
@@ -39,3 +32,17 @@ fi
 
 # set prompt to green
 export PS1export PS1="\e[0;32m[\u@\h \w]\$ \e[m"
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+
+if ! [[ "$PATH" =~ "$HOME/.local/scripts:" ]]
+then
+  PATH="$HOME/.local/scripts:$PATH"
+fi
+
+if [ -f $HOME/.bash_aliases ] ; then
+  . ~/.bash_aliases
+fi
+
